@@ -20,14 +20,20 @@
 
 package com.forex.data;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.swing.JTable;
@@ -45,14 +51,26 @@ public class Calc {
 
     public void loadECB() {
         // open file C:\Work\forex\Rates\eurofxref-hist.csv
-        String fileName = "C:\\Work\\forex\\Rates\\eurofxref-hist.csv";
+        InputStream is = Calc.class.getResourceAsStream("/eurofxref-hist.csv");
 
-        //read file into stream, try-with-resources
-        try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-            //stream.forEach(System.out::println);
-            //Convert a Stream to List
-            List<String> fileLines = stream.collect(Collectors.toList());
+         // reads each line
+        List<String> fileLines = new ArrayList<>();
+        String l;
+        try {
+            while((l = br.readLine()) != null) {
+                fileLines.add(l); 
+            }
+            is.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Calc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        
+        
+        
             int i = 0;
             for (String s : fileLines) {
                 i++;
@@ -114,10 +132,6 @@ public class Calc {
                     }
                 }
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 
