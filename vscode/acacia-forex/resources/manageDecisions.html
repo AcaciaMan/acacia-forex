@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Forex Decisions</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #decisionsForm {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Forex Decisions</h1>
+    <form id="decisionsForm">
+        <h2>Add New Decision</h2>
+        <label for="dateTime">Date Time:</label>
+        <input type="datetime-local" id="dateTime" name="dateTime"><br><br>
+        
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="done">Done</option>
+            <option value="testing">Testing</option>
+        </select><br><br>
+        
+        <label for="fromCurrency">From Currency:</label>
+        <input type="text" id="fromCurrency" name="fromCurrency"><br><br>
+        
+        <label for="fromAmount">From Amount:</label>
+        <input type="number" id="fromAmount" name="fromAmount" step="0.01"><br><br>
+        
+        <label for="toCurrency">To Currency:</label>
+        <input type="text" id="toCurrency" name="toCurrency"><br><br>
+        
+        <label for="toAmount">To Amount:</label>
+        <input type="number" id="toAmount" name="toAmount" step="0.01"><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+
+    <table id="decisionsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date Time</th>
+                <th>Status</th>
+                <th>From Currency</th>
+                <th>From Amount</th>
+                <th>To Currency</th>
+                <th>To Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Decisions will be populated here -->
+        </tbody>
+    </table>
+
+    <script>
+        const vscode = acquireVsCodeApi();
+
+        // Function to populate the table with decisions
+        function populateDecisionsTable(decisions) {
+            const tableBody = document.getElementById('decisionsTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            decisions.forEach(decision => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = decision.id;
+                row.insertCell(1).textContent = new Date(decision.dateTime).toLocaleString();
+                row.insertCell(2).textContent = decision.status;
+                row.insertCell(3).textContent = decision.fromCurrency;
+                row.insertCell(4).textContent = decision.fromAmount;
+                row.insertCell(5).textContent = decision.toCurrency;
+                row.insertCell(6).textContent = decision.toAmount;
+            });
+        }
+
+        // Listen for messages from the extension
+        window.addEventListener('message', event => {
+            const message = event.data;
+            switch (message.command) {
+                case 'populateDecisions':
+                    populateDecisionsTable(message.decisions);
+                    break;
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('decisionsForm').addEventListener('submit', event => {
+            event.preventDefault();
+            const newDecision = {
+                dateTime: document.getElementById('dateTime').value,
+                status: document.getElementById('status').value,
+                fromCurrency: document.getElementById('fromCurrency').value,
+                fromAmount: parseFloat(document.getElementById('fromAmount').value),
+                toCurrency: document.getElementById('toCurrency').value,
+                toAmount: parseFloat(document.getElementById('toAmount').value)
+            };
+            vscode.postMessage({ command: 'addDecision', decision: newDecision });
+        });
+    </script>
+</body>
+</html>

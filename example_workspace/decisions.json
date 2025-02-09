@@ -1,0 +1,49 @@
+{
+  "decisions": [
+    {
+      "id": 1,
+      "dateTime": "2022-03-01T00:00:00.000Z",
+      "status": "done",
+      "fromCurrency": "USD",
+      "fromAmount": 1000.82,
+      "toCurrency": "EUR",
+      "toAmount": 900.54
+    },
+    {
+      "id": 2,
+      "dateTime": "2022-03-02T00:00:00.000Z",
+      "status": "testing",
+      "fromCurrency": "USD",
+      "fromAmount": 1000.76,
+      "toCurrency": "EUR",
+      "toAmount": 900.64
+    },
+    {
+      "id": 3,
+      "dateTime": "2022-03-03T00:00:00.000Z",
+      "status": "done",
+      "fromCurrency": "USD",
+      "fromAmount": 1000.43,
+      "toCurrency": "EUR",
+      "toAmount": 900.12
+    },
+    {
+      "dateTime": "2025-02-09T22:00",
+      "status": "done",
+      "fromCurrency": "USD",
+      "fromAmount": 123,
+      "toCurrency": "EUR",
+      "toAmount": 125,
+      "id": 4
+    },
+    {
+      "dateTime": "2025-02-09T22:06",
+      "status": "done",
+      "fromCurrency": "EUR",
+      "fromAmount": 101.23,
+      "toCurrency": "USD",
+      "toAmount": 103.44,
+      "id": 5
+    }
+  ]
+}
