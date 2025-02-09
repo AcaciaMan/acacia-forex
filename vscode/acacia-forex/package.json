@@ -17,7 +17,25 @@
         "command": "acacia-forex.helloWorld",
         "title": "Hello World"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "myExtensionContainer",
+          "title": "Acacia Forex",
+          "icon": "resources/forex_icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "myExtensionContainer": [
+        {
+          "type": "webview",
+          "id": "acacia-forex.decisions",
+          "name": "Forex Decisions"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
