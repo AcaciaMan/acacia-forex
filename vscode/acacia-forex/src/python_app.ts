@@ -3,7 +3,7 @@ import M_Config from "./m_config";
 import { PythonMessage } from "./python_message";
 export class PythonApp {
   private _app_id: string;
-  private _child: ChildProcess;
+  private _child: ChildProcess | undefined;
   public app_params: any;
   public result: any;
 
@@ -21,6 +21,12 @@ export class PythonApp {
   }
 
   public get child(): ChildProcess {
+    if (!this._child) {
+      this.callPythonScript();
+    }
+    if (!this._child) {
+      throw new Error("Child process is not defined");
+    }
     return this._child;
   }
 
@@ -68,7 +74,11 @@ export class PythonApp {
 
   public async sendStr(message: string) {
     M_Config.m_channel.new_message();
-    this.child.stdin.write(message, (error: Error | null) => {
+
+    if (!this.child.stdin) {
+      throw new Error("Child process stdin is not defined");
+    }
+    this.child.stdin.write(message, (error: Error | null | undefined) => {
       if (error) {
         console.log(
           "Error sending message to Python subprocess: " + error.message
@@ -102,7 +112,7 @@ export class PythonApp {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     await this.child.kill();
-    this.child = null;
+    this._child = undefined;
 
   }
 }
