@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { DecisionsProvider } from './decisions/decisionsProvider';
+import { PredictionsProvider } from './predictions/predictionsProvider';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -27,6 +28,13 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider(DecisionsProvider.viewType, provider)
 	);
+    const predictionsProvider = new PredictionsProvider(context);
+	context.subscriptions.push(
+        vscode.window.registerWebviewViewProvider(
+            PredictionsProvider.viewType,
+            predictionsProvider
+        )
+    );
 }
 
 // This method is called when your extension is deactivated

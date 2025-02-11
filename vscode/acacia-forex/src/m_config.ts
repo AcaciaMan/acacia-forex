@@ -17,7 +17,6 @@ class M_Config {
 
   public static async destroy() {
     await M_Config.main_con.destroy();
-    M_Config._main_con = null;
   }
 
     static findSrcDirectories(filePath: string): string[] {

@@ -33,6 +33,11 @@
           "type": "webview",
           "id": "acacia-forex.decisions",
           "name": "Forex Decisions"
+        },
+        {
+          "type": "webview",
+          "id": "acacia-forex.predictions",
+          "name": "Forex Predictions"
         }
       ]
     }

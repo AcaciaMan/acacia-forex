@@ -8,7 +8,7 @@ export class PythonApp {
   public result: any;
 
   constructor(app_id: string) {
-    this.app_id = app_id;
+    this._app_id = app_id;
     this.app_params = M_Config.config[this.app_id];
   }
 

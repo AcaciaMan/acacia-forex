@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forex Predictions</title>
+</head>
+<body>
+    <button id="predictionsButton">Predictions</button>
+    <script>
+        const vscode = acquireVsCodeApi();
+        document.getElementById('predictionsButton').addEventListener('click', () => {
+            vscode.postMessage({ command: 'showPredictions' });
+        });
+    </script>
+</body>
+</html>
