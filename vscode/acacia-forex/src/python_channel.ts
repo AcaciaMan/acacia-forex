@@ -1,15 +1,15 @@
 export interface python_channel {
-  received_data: Buffer;
-  received_json: object;
+  received_data: Buffer | undefined;
+  received_json: object | undefined;
   bReceivedResponse: boolean;
   getJSONAs64ByteEncoded(jObj: object): string;
   encode(jObj: object): string;
-  decode(data): void;
+  decode(data: any): void;
 }
 
 export class PythonChannel implements python_channel {
-  received_data: Buffer;
-  received_json: object;
+  received_data: Buffer | undefined;
+  received_json: object | undefined;
   bReceivedResponse: boolean = false;
 
   getJSONAs64ByteEncoded(jObj: object): string {
@@ -24,7 +24,7 @@ export class PythonChannel implements python_channel {
     return jsonString;
   }
 
-  decode(data): void {
+  decode(data: any): void {
     if (!this.received_data) {
       this.received_data = Buffer.from("", "latin1");
     }
@@ -58,15 +58,15 @@ export class PythonChannel implements python_channel {
       if (endIndex < jsonString.length - 3) {
         console.log("recout:", jsonString.substring(endIndex + 3));
       }
-      this.received_data = null;
+      this.received_data = undefined;
     } else if (startIndex === -1 && jsonString.length > 0) {
       console.log("recout:", jsonString);
-      this.received_data = null;
+      this.received_data = undefined;
     }
   }
 
   new_message(): void {
     this.bReceivedResponse = false;
-    this.received_json = null;
+    this.received_json = undefined;
   }
 }
