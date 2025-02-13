@@ -1,5 +1,5 @@
 {
-  "main_app": "py_app",
+  "main_app": "py_prod",
   "py_app": {
     "python_path": "C:/Tools/Python312/python.exe",
     "package_path": "C:/work/GitHub/acacia-forex/Python",

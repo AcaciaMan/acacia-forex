@@ -3,3 +3,4 @@
 /vscode/acacia-forex/node_modules
 /vscode/acacia-forex/dist
 /Python/src/__pycache__
+*.pyc

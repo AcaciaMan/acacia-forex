@@ -3,6 +3,7 @@ from child_channel import ChildChannel
 import child_exec
 
 from child_message import ChildMessage
+from interface.predictions import Predictions
 
 def test1():
     print('prod test1', flush=True)
@@ -19,6 +20,7 @@ def terminate():
 m_child_message = ChildMessage()
 m_child_channel = ChildChannel()
 bTerminate = False
+m_predictions = Predictions(m_child_message)
 
 step_i = 0
 while bTerminate is False:
