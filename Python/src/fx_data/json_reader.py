@@ -136,6 +136,15 @@ class JSONReader(metaclass=SingletonMeta):
         # and printed to the console
         
         top_pairs, top_likelihood = zip(*sorted(zip(top_pairs, top_likelihood), key=lambda x: x[1], reverse=True))
+
+        # write the top_pairs and top_likelihood to the trends.txt file
+        # in the file name add the self.df date range
+        start_date = self.df['Date'].min().strftime('%Y-%m-%d')
+        end_date = self.df['Date'].max().strftime('%Y-%m-%d')
+
+        with open(os.path.join(self.m_dir, f'trends_{start_date}_to_{end_date}.txt'), 'w') as file:
+            for pair, likelihood in zip(top_pairs, top_likelihood):
+                file.write(f'{pair}: {likelihood}\n')
                 
         self.m_child_message.m_return = {'top_pairs': top_pairs, 'top_likelihood': top_likelihood}
 
