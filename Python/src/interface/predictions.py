@@ -15,3 +15,8 @@ class Predictions:
 
     def create_folder_structure(self):
         JSONReader().create_folder_structure(self.m_child_message)
+
+    def environmental_trends(self):
+        JSONReader().environmental_trends()
+
+        return 1

@@ -35,9 +35,9 @@ export class PredictionsProvider implements vscode.WebviewViewProvider {
                         
                         m_python_message = new PythonMessage( "m_predictions.create_folder_structure()", {"dir": workspaceFolder} );
                         await M_Config.main_con.send( m_python_message );
-                        
-                        
-                        
+
+                        m_python_message = new PythonMessage( "m_predictions.environmental_trends()", {"dir": workspaceFolder} );
+                        await M_Config.main_con.send( m_python_message );
                         
                         M_Logging.log("Result:", JSON.stringify(M_Config.main_con.result));
                         break;
