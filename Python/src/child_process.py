@@ -4,6 +4,7 @@ import child_exec
 
 from child_message import ChildMessage
 from interface.predictions import Predictions
+from fx_data.json_reader import JSONReader  # noqa: F401
 
 def test1():
     print('prod test1', flush=True)
