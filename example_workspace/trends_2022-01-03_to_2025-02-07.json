@@ -1,0 +1,26 @@
+[
+    {
+        "Name": "GBPEUR",
+        "IncreasingLikelihood": 99.06294316052016
+    },
+    {
+        "Name": "USDEUR",
+        "IncreasingLikelihood": 91.32268891060733
+    },
+    {
+        "Name": "USDGBP",
+        "IncreasingLikelihood": 86.72448055230632
+    },
+    {
+        "Name": "GBPUSD",
+        "IncreasingLikelihood": 13.275519447693684
+    },
+    {
+        "Name": "EURUSD",
+        "IncreasingLikelihood": 8.67731108939267
+    },
+    {
+        "Name": "EURGBP",
+        "IncreasingLikelihood": 0.9370568394798329
+    }
+]

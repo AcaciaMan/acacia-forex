@@ -117,35 +117,27 @@ class JSONReader(metaclass=SingletonMeta):
         for pair in self.m_currency_pairs:
             self.decomp.t[pair].to_csv(os.path.join(self.m_dir, pair[:3], pair, 'trend_data.csv'), index=False)
 
-        # find the environmental trends likely to increase for 5 top currency pairs
-        # self.decomp.t[pair]['IncreasingLikelihood'] contains the likelihood of the trend increasing
-        # made a list of the top 5 currency pairs with the highest likelihood of the trend increasing
-        top_pairs = []
-        top_likelihood = []
+
+        # made dictionary of pairs and their likelihood of the trend increasing
+        trend_likelihood = {}
         for pair in self.m_currency_pairs:
-            if self.decomp.t[pair]['IncreasingLikelihood'].mean() > 50:
-                top_pairs.append(pair)
-                top_likelihood.append(self.decomp.t[pair]['IncreasingLikelihood'].mean())
+            trend_likelihood[pair] = self.decomp.t[pair]['IncreasingLikelihood'].mean()
 
-        # sort the top_pairs and top_likelihood lists by the likelihood
-        # in descending order
-        # zip the lists together
-        # and store the result in the m_child_message.m_return dictionary
-        # 
-        # the dictionary will be sent back to the parent Node process
-        # and printed to the console
-        
-        top_pairs, top_likelihood = zip(*sorted(zip(top_pairs, top_likelihood), key=lambda x: x[1], reverse=True))
+        # sort the pairs by their likelihood in descending order
+        top_pairs = sorted(trend_likelihood, key=trend_likelihood.get, reverse=True)
 
-        # write the top_pairs and top_likelihood to the trends.txt file
+
+
+        # write the pairs and their likelihood to the trends.json file
         # in the file name add the self.df date range
         start_date = self.df['Date'].min().strftime('%Y-%m-%d')
         end_date = self.df['Date'].max().strftime('%Y-%m-%d')
 
-        with open(os.path.join(self.m_dir, f'trends_{start_date}_to_{end_date}.txt'), 'w') as file:
-            for pair, likelihood in zip(top_pairs, top_likelihood):
-                file.write(f'{pair}: {likelihood}\n')
-                
-        self.m_child_message.m_return = {'top_pairs': top_pairs, 'top_likelihood': top_likelihood}
+        with open(os.path.join(self.m_dir, f'trends_{start_date}_to_{end_date}.json'), 'w') as file:
+            json.dump([{'Name': pair, 'IncreasingLikelihood': trend_likelihood[pair]} for pair in top_pairs], file, indent=4)
+
+
+        # return the 5 top pairs and their likelihood
+        self.m_child_message.m_return = {pair: trend_likelihood[pair] for pair in top_pairs[:5]} 
 
         return 1
