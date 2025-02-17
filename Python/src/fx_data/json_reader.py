@@ -133,7 +133,11 @@ class JSONReader(metaclass=SingletonMeta):
         start_date = self.df['Date'].min().strftime('%Y-%m-%d')
         end_date = self.df['Date'].max().strftime('%Y-%m-%d')
 
-        with open(os.path.join(self.m_dir, f'trends_{start_date}_to_{end_date}.json'), 'w') as file:
+        # Ensure the directory exists
+        trends_dir = os.path.join(self.m_dir, 'data')
+        os.makedirs(trends_dir, exist_ok=True)
+
+        with open(os.path.join(trends_dir, f'trends_{start_date}_to_{end_date}.json'), 'w') as file:
             json.dump([{'Name': pair, 'IncreasingLikelihood': trend_likelihood[pair]} for pair in top_pairs], file, indent=4)
 
 
