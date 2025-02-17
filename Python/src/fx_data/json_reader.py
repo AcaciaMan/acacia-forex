@@ -140,6 +140,13 @@ class JSONReader(metaclass=SingletonMeta):
         with open(os.path.join(trends_dir, f'trends_{start_date}_to_{end_date}.json'), 'w') as file:
             json.dump([{'Name': pair, 'IncreasingLikelihood': trend_likelihood[pair]} for pair in top_pairs], file, indent=4)
 
+        #update data/dataFiles.json with the new trends file name as a first element, if the file name is not already there
+        with open(os.path.join(trends_dir, 'dataFiles.json'), 'r') as file:
+            data_files = json.load(file)
+            if f'data/trends_{start_date}_to_{end_date}.json' not in data_files:
+                data_files.insert(0, f'data/trends_{start_date}_to_{end_date}.json')
+                with open(os.path.join(trends_dir, 'dataFiles.json'), 'w') as file:
+                    json.dump(data_files, file, indent=4)
 
         # return the 5 top pairs and their likelihood
         self.m_child_message.m_return = {pair: trend_likelihood[pair] for pair in top_pairs[:5]} 
