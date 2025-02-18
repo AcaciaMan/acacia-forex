@@ -1,26 +1,26 @@
 [
     {
         "Name": "GBPEUR",
-        "IncreasingLikelihood": 99.06294316052016
+        "Inc": 99.1
     },
     {
         "Name": "USDEUR",
-        "IncreasingLikelihood": 91.32268891060733
+        "Inc": 91.3
     },
     {
         "Name": "USDGBP",
-        "IncreasingLikelihood": 86.72448055230632
+        "Inc": 86.7
     },
     {
         "Name": "GBPUSD",
-        "IncreasingLikelihood": 13.275519447693684
+        "Inc": 13.3
     },
     {
         "Name": "EURUSD",
-        "IncreasingLikelihood": 8.67731108939267
+        "Inc": 8.7
     },
     {
         "Name": "EURGBP",
-        "IncreasingLikelihood": 0.9370568394798329
+        "Inc": 0.9
     }
 ]

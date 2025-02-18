@@ -29,6 +29,9 @@ export class PredictionsProvider implements vscode.WebviewViewProvider {
                         let m_python_message = new PythonMessage( "JSONReader().__init__()", {"something": 1} );
                         await M_Config.main_con.send( m_python_message );
 
+                        m_python_message = new PythonMessage( "EnvTrends().__init__()", {"something": 1} );
+                        await M_Config.main_con.send( m_python_message );
+
                         const workspaceFolder = vscode.workspace.workspaceFolders ? vscode.workspace.workspaceFolders[0].uri.fsPath : '';
                         m_python_message = new PythonMessage( "m_predictions.load_fx_data()", {"file_path": workspaceFolder + "/filtered_data.json"} );
                         await M_Config.main_con.send( m_python_message );

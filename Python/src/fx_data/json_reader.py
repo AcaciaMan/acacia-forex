@@ -2,8 +2,6 @@ import pandas as pd
 import json
 from utilities.singleton_meta import SingletonMeta
 import os
-from time_decomp.decomposition import DecompositionSingleton
-from time_decomp.environmentaltrends import EnvironmentalTrends
 
 pd.set_option('display.max_columns', None)
 
@@ -16,8 +14,6 @@ class JSONReader(metaclass=SingletonMeta):
         self.m_child_message = None
         self.m_dir = None
         self.lCurrencies = []
-        self.m_decomposition = DecompositionSingleton()
-        self.decomp = EnvironmentalTrends()
         self.m_currency_pairs = []
 
     def read_json(self, file_path):
@@ -38,8 +34,6 @@ class JSONReader(metaclass=SingletonMeta):
 
             self.df['Year'] = self.df['Date'].dt.year
             self.df['Month'] = self.df['Date'].dt.month
-            self.df['KeewMonth'] = self.df['Date'].apply(self.m_decomposition.get_month_keew)
-            self.df['Keew']=(self.df['Month']-1)*4+self.df['KeewMonth']
             
         return self.df
     
@@ -97,58 +91,3 @@ class JSONReader(metaclass=SingletonMeta):
 
         return 1
     
-    def environmental_trends(self):
-        """
-        Prints environmental trends.
-        """
-        print('environmental_trends', flush=True)
-
-        self.decomp.df = self.df.copy()
-        self.decomp.df = self.decomp.df.groupby(['Year', 'Month']).last().reset_index()
-        self.decomp.features = self.m_currency_pairs
-        self.decomp.trend_data_params = {'year_col':'Year', 'month_col':'Month' }
-        self.decomp.trends_params = {'seasons_per_year': 12, 'trend_lengths': [1], 'end_years': [2025]}
-
-        self.decomp.m_trends()
-        print(self.decomp.t['EURUSD'].head(5), flush=True)
-
-
-        # save the trend data to a file
-        for pair in self.m_currency_pairs:
-            self.decomp.t[pair].to_csv(os.path.join(self.m_dir, pair[:3], pair, 'trend_data.csv'), index=False)
-
-
-        # made dictionary of pairs and their likelihood of the trend increasing
-        trend_likelihood = {}
-        for pair in self.m_currency_pairs:
-            trend_likelihood[pair] = self.decomp.t[pair]['IncreasingLikelihood'].mean()
-
-        # sort the pairs by their likelihood in descending order
-        top_pairs = sorted(trend_likelihood, key=trend_likelihood.get, reverse=True)
-
-
-
-        # write the pairs and their likelihood to the trends.json file
-        # in the file name add the self.df date range
-        start_date = self.df['Date'].min().strftime('%Y-%m-%d')
-        end_date = self.df['Date'].max().strftime('%Y-%m-%d')
-
-        # Ensure the directory exists
-        trends_dir = os.path.join(self.m_dir, 'data')
-        os.makedirs(trends_dir, exist_ok=True)
-
-        with open(os.path.join(trends_dir, f'trends_{start_date}_to_{end_date}.json'), 'w') as file:
-            json.dump([{'Name': pair, 'IncreasingLikelihood': trend_likelihood[pair]} for pair in top_pairs], file, indent=4)
-
-        #update data/dataFiles.json with the new trends file name as a first element, if the file name is not already there
-        with open(os.path.join(trends_dir, 'dataFiles.json'), 'r') as file:
-            data_files = json.load(file)
-            if f'data/trends_{start_date}_to_{end_date}.json' not in data_files:
-                data_files.insert(0, f'data/trends_{start_date}_to_{end_date}.json')
-                with open(os.path.join(trends_dir, 'dataFiles.json'), 'w') as file:
-                    json.dump(data_files, file, indent=4)
-
-        # return the 5 top pairs and their likelihood
-        self.m_child_message.m_return = {pair: trend_likelihood[pair] for pair in top_pairs[:5]} 
-
-        return 1
