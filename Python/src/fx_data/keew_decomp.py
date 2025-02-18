@@ -31,5 +31,9 @@ class KeewDecomp(metaclass=SingletonMeta):
         # save the decomposed data plot to a file
         for pair in self.jr.m_currency_pairs:
             self.decomp.plot_decomposition(pair, 'Year', range(2022,2026), 'Keew', 'A keew', chart_elements=[self.decomp.ChartElement.TREND, self.decomp.ChartElement.SEASONAL])
-            plt.savefig(os.path.join(self.jr.m_dir, pair[:3], pair, 'decomposition.png'))
+            plt.savefig(os.path.join(self.jr.m_dir, pair[:3], pair, 'keew_decomp.png'))
+
+        for pair in self.jr.m_currency_pairs:
+            self.decomp.s[pair].plot()
+            plt.savefig(os.path.join(self.jr.m_dir, pair[:3], pair, 'decomposition.png'))    
 
