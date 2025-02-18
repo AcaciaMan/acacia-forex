@@ -6,6 +6,7 @@ from child_message import ChildMessage
 from interface.predictions import Predictions
 from fx_data.json_reader import JSONReader  # noqa: F401
 from fx_data.env_trends import EnvTrends  # noqa: F401
+from fx_data.keew_decomp import KeewDecomp  # noqa: F401
 
 def test1():
     print('prod test1', flush=True)

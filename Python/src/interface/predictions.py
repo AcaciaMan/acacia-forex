@@ -1,5 +1,6 @@
 from fx_data.json_reader import JSONReader
 from fx_data.env_trends import EnvTrends
+from fx_data.keew_decomp import KeewDecomp
 
 class Predictions:
 
@@ -18,5 +19,10 @@ class Predictions:
 
     def environmental_trends(self):
         EnvTrends().environmental_trends()
+
+        return 1
+    
+    def m_keews(self):
+        KeewDecomp().m_keews()
 
         return 1
