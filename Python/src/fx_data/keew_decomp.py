@@ -1,3 +1,4 @@
+import pandas as pd
 from utilities.singleton_meta import SingletonMeta
 from fx_data.json_reader import JSONReader
 from time_decomp.decomposition import DecompositionSingleton
@@ -12,7 +13,7 @@ class KeewDecomp(metaclass=SingletonMeta):
     def __init__(self):
         self.decomp = DecompositionSingleton()
         self.jr = JSONReader()
-        self.df = self.jr.df.copy()
+        self.df = pd.DataFrame()
         self.m_stats = {}
 
     def m_keews(self):
@@ -46,6 +47,7 @@ class KeewDecomp(metaclass=SingletonMeta):
         Calculates the statistics of the keew data.
         """
         print('calc_stats', flush=True)
+        self.df = self.jr.df.copy()
         self.df['KeewMonth'] = self.df['Date'].apply(self.decomp.get_month_keew)
         self.df['Keew'] = (self.df['Month']-1)*4+self.df['KeewMonth']      
         m_sysdate = datetime.now()

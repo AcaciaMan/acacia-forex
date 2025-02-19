@@ -1,26 +1,62 @@
 [
     {
-        "Name": "GBPEUR",
-        "Inc": 99.1
+        "Name": "EURUSD",
+        "KeewMin": -0.52,
+        "KeewMax": 0.94,
+        "KeewMean": 0.13,
+        "NextKeewMin": -1.26,
+        "NextKeewMax": -0.17,
+        "NextKeewMean": -0.55,
+        "Inc": 8.7
     },
     {
         "Name": "USDEUR",
+        "KeewMin": -0.93,
+        "KeewMax": 0.53,
+        "KeewMean": -0.13,
+        "NextKeewMin": 0.17,
+        "NextKeewMax": 1.28,
+        "NextKeewMean": 0.56,
         "Inc": 91.3
     },
     {
+        "Name": "EURGBP",
+        "KeewMin": -0.99,
+        "KeewMax": -0.01,
+        "KeewMean": -0.37,
+        "NextKeewMin": -0.28,
+        "NextKeewMax": 0.04,
+        "NextKeewMean": -0.13,
+        "Inc": 0.9
+    },
+    {
+        "Name": "GBPEUR",
+        "KeewMin": 0.01,
+        "KeewMax": 1.0,
+        "KeewMean": 0.37,
+        "NextKeewMin": -0.04,
+        "NextKeewMax": 0.28,
+        "NextKeewMean": 0.13,
+        "Inc": 99.1
+    },
+    {
         "Name": "USDGBP",
+        "KeewMin": -0.94,
+        "KeewMax": -0.07,
+        "KeewMean": -0.49,
+        "NextKeewMin": -0.04,
+        "NextKeewMax": 1.11,
+        "NextKeewMean": 0.42,
         "Inc": 86.7
     },
     {
         "Name": "GBPUSD",
+        "KeewMin": 0.07,
+        "KeewMax": 0.95,
+        "KeewMean": 0.5,
+        "NextKeewMin": -1.1,
+        "NextKeewMax": 0.04,
+        "NextKeewMean": -0.42,
         "Inc": 13.3
-    },
-    {
-        "Name": "EURUSD",
-        "Inc": 8.7
-    },
-    {
-        "Name": "EURGBP",
-        "Inc": 0.9
     }
 ]

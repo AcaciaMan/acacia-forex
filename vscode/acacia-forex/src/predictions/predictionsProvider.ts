@@ -50,6 +50,9 @@ export class PredictionsProvider implements vscode.WebviewViewProvider {
                         m_python_message = new PythonMessage( "m_predictions.m_keews()", {"dir": workspaceFolder} );
                         await M_Config.main_con.send( m_python_message );
 
+                        m_python_message = new PythonMessage( "m_predictions.write_stats()", {"dir": workspaceFolder} );
+                        await M_Config.main_con.send( m_python_message );
+
                         break;
                 }
             },
