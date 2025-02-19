@@ -24,6 +24,7 @@ class KeewDecomp(metaclass=SingletonMeta):
         self.decomp.df = self.jr.df.copy()
         self.decomp.df['KeewMonth'] = self.decomp.df['Date'].apply(self.decomp.get_month_keew)
         self.decomp.df['Keew'] = (self.decomp.df['Month']-1)*4+self.decomp.df['KeewMonth']
+        self.decomp.df = self.decomp.df.sort_values(by=['Year', 'Keew', 'Date'], ascending=[True, True, True])
         self.decomp.df = self.decomp.df.groupby(['Year', 'Keew']).last().reset_index()
         
         self.decomp.features = self.jr.m_currency_pairs
@@ -55,9 +56,12 @@ class KeewDecomp(metaclass=SingletonMeta):
         if m_next_keew > 48:
             m_next_keew = 1
         # calculate the min, max and mean of the keew and next keew data for the pairs and add it to the dictionary
+        self.df = self.df.sort_values(by=['Year', 'Keew', 'Date'], ascending=[True, True, True])
         self.df = self.df.groupby(['Year', 'Keew']).last().reset_index()
         # calculate the percentage change of the keew and next keew data for the pairs and add it to the dictionary
-        self.df_pct = self.df.pct_change()
+        self.df_pct = self.df.copy()
+        for pair in self.jr.m_currency_pairs:
+            self.df_pct[pair] = self.df[pair].pct_change()*100
 
         for pair in self.jr.m_currency_pairs:
             stats = {}

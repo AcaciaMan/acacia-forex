@@ -10,7 +10,7 @@ class JSONReader(metaclass=SingletonMeta):
     A Singleton class to read JSON files into pandas DataFrames.
     """
     def __init__(self):
-        self.df = None
+        self.df = pd.DataFrame()
         self.m_child_message = None
         self.m_dir = None
         self.lCurrencies = []
