@@ -7,7 +7,11 @@
         "NextKeewMin": -1.26,
         "NextKeewMax": -0.17,
         "NextKeewMean": -0.55,
-        "Inc": 8.7
+        "Inc": 1.8,
+        "LastDatePre": 1.036,
+        "LastDate": 1.0377,
+        "PctChange": 0.16,
+        "PctChangePre": -0.59
     },
     {
         "Name": "USDEUR",
@@ -17,7 +21,11 @@
         "NextKeewMin": 0.17,
         "NextKeewMax": 1.28,
         "NextKeewMean": 0.56,
-        "Inc": 91.3
+        "Inc": 98.2,
+        "LastDatePre": 0.9653,
+        "LastDate": 0.9637,
+        "PctChange": -0.16,
+        "PctChangePre": 0.6
     },
     {
         "Name": "EURGBP",
@@ -27,7 +35,11 @@
         "NextKeewMin": -0.28,
         "NextKeewMax": 0.04,
         "NextKeewMean": -0.13,
-        "Inc": 0.9
+        "Inc": 3.2,
+        "LastDatePre": 0.8369,
+        "LastDate": 0.8335,
+        "PctChange": -0.4,
+        "PctChangePre": 0.73
     },
     {
         "Name": "GBPEUR",
@@ -37,7 +49,11 @@
         "NextKeewMin": -0.04,
         "NextKeewMax": 0.28,
         "NextKeewMean": 0.13,
-        "Inc": 99.1
+        "Inc": 96.8,
+        "LastDatePre": 1.1949,
+        "LastDate": 1.1997,
+        "PctChange": 0.4,
+        "PctChangePre": -0.72
     },
     {
         "Name": "USDGBP",
@@ -47,7 +63,11 @@
         "NextKeewMin": -0.04,
         "NextKeewMax": 1.11,
         "NextKeewMean": 0.42,
-        "Inc": 86.7
+        "Inc": 98.2,
+        "LastDatePre": 0.8078,
+        "LastDate": 0.8032,
+        "PctChange": -0.56,
+        "PctChangePre": 1.33
     },
     {
         "Name": "GBPUSD",
@@ -57,6 +77,10 @@
         "NextKeewMin": -1.1,
         "NextKeewMax": 0.04,
         "NextKeewMean": -0.42,
-        "Inc": 13.3
+        "Inc": 1.8,
+        "LastDatePre": 1.2379,
+        "LastDate": 1.2449,
+        "PctChange": 0.57,
+        "PctChangePre": -1.31
     }
 ]

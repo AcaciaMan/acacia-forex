@@ -52,6 +52,8 @@ class Predictions:
             # itereate over the stats dictionary and add the values to the new dictionary
             for key in KeewDecomp().m_stats[pair]:
                 dStats[key] = KeewDecomp().m_stats[pair][key]
+            for key in jr.m_stats[pair]:
+                dStats[key] = jr.m_stats[pair][key]    
             lStats.append(dStats)
 
         with open(os.path.join(trends_dir, f'trends_{start_date}_to_{end_date}.json'), 'w') as file:

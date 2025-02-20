@@ -11,10 +11,12 @@ class JSONReader(metaclass=SingletonMeta):
     """
     def __init__(self):
         self.df = pd.DataFrame()
+        self.df_pct = pd.DataFrame()
         self.m_child_message = None
         self.m_dir = None
         self.lCurrencies = []
         self.m_currency_pairs = []
+        self.m_stats = {}
 
     def read_json(self, file_path):
         """
@@ -34,6 +36,8 @@ class JSONReader(metaclass=SingletonMeta):
 
             self.df['Year'] = self.df['Date'].dt.year
             self.df['Month'] = self.df['Date'].dt.month
+
+            self.df = self.df.sort_values(by=['Date'], ascending=[True])
             
         return self.df
     
@@ -88,6 +92,19 @@ class JSONReader(metaclass=SingletonMeta):
         print(self.df.head(5), flush=True)
 
         self.m_currency_pairs = currency_pairs      
+
+        self.df_pct = self.df.copy()
+        for pair in self.m_currency_pairs:
+            self.df_pct[pair] = self.df[pair].pct_change()*100
+
+        for pair in self.m_currency_pairs:
+            self.m_stats[pair] = {}
+            # find last 2 dates numbers in the data and add them to the dictionary
+            self.m_stats[pair]['LastDatePre'] = self.df[pair].iloc[-2].round(4)
+            self.m_stats[pair]['LastDate'] = self.df[pair].iloc[-1].round(4)
+            # find the percentage change of the last 2 dates and add them to the dictionary
+            self.m_stats[pair]['PctChange'] = self.df_pct[pair].iloc[-1].round(2)
+            self.m_stats[pair]['PctChangePre'] = self.df_pct[pair].iloc[-2].round(2)
 
         return 1
     
